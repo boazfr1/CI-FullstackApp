@@ -18,24 +18,19 @@ jobs:
 
     strategy:
         matrix:
-            node-version: [16, 18]
+            node-version: [16.x, 18.x]
 
     steps:
-      # Check out the code from the repository.
-      - uses: 
-      # Set up a Node.js environment using the specified node version.
-      - uses: 
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 
-
-      # Install the dependencies.
-      - run: 
-
-      # Run the tests.
-      - run: 
+          node-version: ${{ matrix.node-version }}
+      - run: cd backend && npm ci
+      - run: cd backend && npm test    
+      
 
       # Run the linter.
-      - run: 
+      - run: cd backend && npm run lint
 
       # Send a console message at completion.
       - run: |
